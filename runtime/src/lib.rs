@@ -378,11 +378,57 @@ impl_runtime_apis! {
 		}
 
 		fn get_preset(id: &Option<sp_genesis_builder::PresetId>) -> Option<Vec<u8>> {
-			get_preset::<RuntimeGenesisConfig>(id, |_| None)
+			get_preset::<RuntimeGenesisConfig>(id, |id| {
+				genesis_config_presets::get_preset(id)
+			})
 		}
 
 		fn preset_names() -> Vec<sp_genesis_builder::PresetId> {
-			vec![]
+			genesis_config_presets::preset_names()
 		}
+	}
+}
+
+pub mod genesis_config_presets {
+	use super::*;
+	use frame::deps::sp_keyring::Sr25519Keyring as AccountKeyring;
+
+	use alloc::{vec, vec::Vec};
+	use serde_json::Value;
+
+	/// Returns a development genesis config preset.
+	pub fn development_config_genesis() -> Value {
+		let endowment =
+			<<Runtime as pallet_balances::Config>::ExistentialDeposit as Get<Balance>>::get()
+				.max(1) * 1000;
+		let config = RuntimeGenesisConfig {
+			balances: BalancesConfig {
+				balances: AccountKeyring::iter()
+					.map(|a| (a.to_account_id(), endowment))
+					.collect::<Vec<_>>(),
+				..Default::default()
+			},
+			sudo: SudoConfig { key: Some(AccountKeyring::Alice.to_account_id()) },
+			..Default::default()
+		};
+		serde_json::to_value(config).expect("Could not build genesis config.")
+	}
+
+	/// Get the set of the available genesis config presets.
+	pub fn get_preset(id: &PresetId) -> Option<Vec<u8>> {
+		let patch = match id.as_ref() {
+			sp_genesis_builder::DEV_RUNTIME_PRESET => development_config_genesis(),
+			_ => return None,
+		};
+		Some(
+			serde_json::to_string(&patch)
+				.expect("serialization to json is expected to work. qed.")
+				.into_bytes(),
+		)
+	}
+
+	/// List of supported presets.
+	pub fn preset_names() -> Vec<PresetId> {
+		vec![PresetId::from(sp_genesis_builder::DEV_RUNTIME_PRESET)]
 	}
 }

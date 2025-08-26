@@ -20,6 +20,7 @@ codec = { package = "parity-scale-codec", version = "3.7.4", default-features = 
 scale-info = { version = "2.11.6", default-features = false, features = [
 	"derive",
 ] }
+serde_json = { version = "1.0.143", default-features = false }
 
 # substrate primitives
 sp-core = { version = "36.1.0", default-features = false }
