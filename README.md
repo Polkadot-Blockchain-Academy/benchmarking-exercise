@@ -197,7 +197,21 @@ Good luck with your benchmarking implementation! This exercise will give you val
 
 ## Extra Credits
 
-Run the omni bencher and update the `weights.rs` file with your results.
+Install the omni bencher:
 ```bash
 cargo install frame-omni-bencher --locked
+```
+
+Build your runtime with benchmarking enabled:
+```bash
+cargo build --release --features runtime-benchmarks
+```
+
+Run the omni bencher and update the `weights.rs` file with your results:
+```bash
+frame-omni-bencher v1 benchmark pallet \
+    --runtime \
+    ../../target/release/wbuild/pba-runtime/pba_runtime.compact.compressed.wasm \
+    --pallet "pallet_identity" --extrinsic "" \
+    --output weights.rs
 ```
