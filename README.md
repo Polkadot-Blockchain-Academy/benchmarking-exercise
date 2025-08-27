@@ -4,7 +4,11 @@ This repository contains a **benchmarking exercise** designed to teach FRAME pal
 
 ## Exercise Overview
 
-Your task is to **implement the missing benchmarks** in the Identity pallet's benchmarking module. This exercise will teach you to:
+Your task is to
+1. **implement the missing benchmarks** in the Identity pallet's benchmarking module
+2. **run the benchmarks** and generate a `weights.rs` file
+
+This exercise will teach you to:
 
 1. **Analyze complexity patterns** - Understand different algorithmic complexities (linear, logarithmic, constant)
 2. **Choose appropriate parameters** - Determine which complexity parameters are necessary for accurate benchmarking
@@ -51,6 +55,9 @@ fn clear_identity_double_map_usage(
 - **Implement the benchmark**: Create a complete benchmark demonstrating the difference from inline storage
 - **Add verification**: Include proper assertions to verify the benchmark correctness
 
+### 3. Run the Benchmarks
+**Your Task:** After implementing the benchmarks it is time to actually run them by compiling your runtime and using the omni bencher to get timings for the extrinsics.
+
 ## Key Learning Objectives
 
 - Complexity Analysis
@@ -95,6 +102,7 @@ Use existing helper functions:
 ## Testing Your Implementation
 
 ### Run Benchmark Tests
+Run for your pallets tests, including the benchmarks.
 ```bash
 cargo test -p pallet-identity --features runtime-benchmarks
 ```
@@ -151,25 +159,10 @@ This Identity pallet is a **simplified version** of Substrate's Identity pallet,
 
 ## How to Run
 
-### Individual Pallet Testing
+### Full Runtime Build
 ```bash
-# Test the identity pallet (primary focus)
-cargo t -p pallet-identity
-
-# Test with benchmarks
-cargo test -p pallet-identity --features runtime-benchmarks
-```
-
-### Full Runtime Build and Testing
-```bash
-# Build runtime WASM
+# Build runtime WASM **WITHOUT BENCHMARKS**
 cargo build -p pba-runtime --release
-
-# Test all pallets
-cargo test --all
-
-# Test all with benchmarks
-cargo test --all --features runtime-benchmarks
 ```
 
 ### Running with Omni-Node
@@ -185,18 +178,7 @@ chain-spec-builder create --runtime ./target/release/wbuild/pba-runtime/pba_runt
 polkadot-omni-node --chain chain_spec.json --dev-block-time 6000 --tmp
 ```
 
-## Tips for Success
-
-1. **Start by understanding**: Read the `clear_identity` extrinsic implementation first
-2. **Study the patterns**: Look at existing benchmarks to understand the structure
-3. **Test frequently**: Run tests after each change to catch issues early
-4. **Think about complexity**: Consider what actually makes the operation more expensive
-5. **Verify your work**: Ensure your benchmarks test what they claim to test
-
-Good luck with your benchmarking implementation! This exercise will give you valuable hands-on experience with FRAME benchmarking concepts that are essential for production Substrate development.
-
-## Extra Credits
-
+### Running the Benchmarks
 Install the omni bencher:
 ```bash
 cargo install frame-omni-bencher --locked
@@ -207,7 +189,7 @@ Build your runtime with benchmarking enabled:
 cargo build --release --features runtime-benchmarks
 ```
 
-Run the omni bencher and update the `weights.rs` file with your results:
+Run the omni bencher and generate a `weights.rs` file with your results:
 ```bash
 frame-omni-bencher v1 benchmark pallet \
     --runtime \
@@ -215,3 +197,15 @@ frame-omni-bencher v1 benchmark pallet \
     --pallet "pallet_identity" --extrinsic "" \
     --output weights.rs
 ```
+
+## Tips for Success
+
+1. **Start by understanding**: Read the `clear_identity` extrinsic implementation first
+2. **Study the patterns**: Look at existing benchmarks to understand the structure
+3. **Test frequently**: Run tests after each change to catch issues early
+4. **Think about complexity**: Consider what actually makes the operation more expensive
+5. **Verify your work**: Ensure your benchmarks test what they claim to test
+
+Good luck with your benchmarking implementation! This exercise will give you valuable hands-on experience with FRAME benchmarking concepts that are essential for production Substrate development.
+
+
