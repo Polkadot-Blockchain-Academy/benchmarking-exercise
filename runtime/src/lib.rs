@@ -20,8 +20,8 @@ use pallet_transaction_payment::{ConstFeeMultiplier, FeeDetails, Multiplier, Run
 
 #[runtime_version]
 const VERSION: RuntimeVersion = RuntimeVersion {
-	spec_name: alloc::borrow::Cow::Borrowed("pba-assignment-template"),
-	impl_name: alloc::borrow::Cow::Borrowed("pba-assignment-template"),
+	spec_name: alloc::borrow::Cow::Borrowed("bench-exercise-template"),
+	impl_name: alloc::borrow::Cow::Borrowed("bench-exercise-template"),
 	authoring_version: 1,
 	spec_version: 0,
 	impl_version: 1,
