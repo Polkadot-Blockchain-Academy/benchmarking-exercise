@@ -1,5 +1,5 @@
 [package]
-name = "pba-runtime"
+name = "bench-runtime"
 description = "A solochain runtime template built with Substrate, part of Polkadot Sdk. (polkadot v1.11.0)"
 version = "0.1.0"
 license = "MIT-0"

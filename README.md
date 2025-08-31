@@ -162,7 +162,7 @@ This Identity pallet is a **simplified version** of Substrate's Identity pallet,
 ### Full Runtime Build
 ```bash
 # Build runtime WASM **WITHOUT BENCHMARKS**
-cargo build -p pba-runtime --release
+cargo build -p bench-runtime --release
 ```
 
 ### Running with Omni-Node
@@ -172,7 +172,7 @@ cargo install polkadot-omni-node --locked
 cargo install staging-chain-spec-builder --locked
 
 # Create chain spec from WASM
-chain-spec-builder create --runtime ./target/release/wbuild/pba-runtime/pba_runtime.wasm --relay-chain westend --para-id 1000 -t development default
+chain-spec-builder create --runtime ./target/release/wbuild/bench-runtime/pba_runtime.wasm --relay-chain westend --para-id 1000 -t development default
 
 # Run omni-node
 polkadot-omni-node --chain chain_spec.json --dev-block-time 6000 --tmp
@@ -193,7 +193,7 @@ Run the omni bencher and generate a `weights.rs` file with your results:
 ```bash
 frame-omni-bencher v1 benchmark pallet \
     --runtime \
-    ../../target/release/wbuild/pba-runtime/pba_runtime.compact.compressed.wasm \
+    ./target/release/wbuild/bench-runtime/bench_runtime.compact.compressed.wasm \
     --pallet "pallet_identity" --extrinsic "" \
     --output weights.rs
 ```

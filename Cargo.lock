@@ -468,6 +468,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "89e25b6adfb930f02d1981565a6e5d9c547ac15a96606256d3b59040e5cd4ca3"
 
 [[package]]
+name = "bench-runtime"
+version = "0.1.0"
+dependencies = [
+ "pallet-balances",
+ "pallet-identity",
+ "pallet-sudo",
+ "pallet-timestamp",
+ "pallet-transaction-payment",
+ "pallet-transaction-payment-rpc-runtime-api",
+ "parity-scale-codec",
+ "polkadot-sdk-frame",
+ "scale-info",
+ "serde_json",
+ "sp-genesis-builder",
+ "sp-runtime",
+ "substrate-wasm-builder",
+]
+
+[[package]]
 name = "binary-merkle-tree"
 version = "16.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2475,25 +2494,6 @@ name = "paste"
 version = "1.0.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
-
-[[package]]
-name = "pba-runtime"
-version = "0.1.0"
-dependencies = [
- "pallet-balances",
- "pallet-identity",
- "pallet-sudo",
- "pallet-timestamp",
- "pallet-transaction-payment",
- "pallet-transaction-payment-rpc-runtime-api",
- "parity-scale-codec",
- "polkadot-sdk-frame",
- "scale-info",
- "serde_json",
- "sp-genesis-builder",
- "sp-runtime",
- "substrate-wasm-builder",
-]
 
 [[package]]
 name = "pbkdf2"
