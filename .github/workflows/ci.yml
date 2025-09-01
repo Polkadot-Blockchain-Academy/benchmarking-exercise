@@ -1,0 +1,55 @@
+# This is a basic GitHub Actions workflow for a Polkadot-SDK based project.
+# It checks formatting and executes tests with and without the
+# runtime-benchmarks feature.
+
+name: PBA Benchmarking Exercise Checks
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This job builds the code and runs tests
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Install the Rust toolchain
+      # This action automatically reads the rust-toolchain.toml file and
+      # installs the specified Rust version and components.
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          # The 'toolchain' input is a fallback; the action will prioritize
+          # the version defined in your `rust-toolchain.toml` file.
+          toolchain: nightly
+          components: rustfmt
+
+      # 3. Cache Rust dependencies
+      # This step caches the cargo registry, git dependencies, and the target/debug
+      # directory to speed up subsequent builds.
+      - name: Cache dependencies
+        uses: Swatinem/rust-cache@v2
+
+      # 4. Check code formatting
+      - name: Check formatting
+        run: cargo +nightly fmt -- --check
+
+      # 5. Run standard tests
+      # This executes all tests in the workspace.
+      - name: Run standard tests
+        run: cargo test --all
+
+      # 6. Run tests with runtime-benchmarks feature
+      # This is crucial for ensuring your benchmarks compile and run correctly.
+      - name: Run benchmark tests
+        run: cargo test --all --features runtime-benchmarks
