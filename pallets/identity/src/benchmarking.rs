@@ -36,7 +36,6 @@ use frame_support::{
 	BoundedVec,
 };
 use frame_system::RawOrigin;
-use sp_runtime::traits::Zero;
 use sp_std::vec;
 
 /// Create a reasonable identity info for benchmarking

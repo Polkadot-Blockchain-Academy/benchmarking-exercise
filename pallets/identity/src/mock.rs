@@ -73,7 +73,6 @@ parameter_types! {
 }
 
 impl pallet_identity::Config for Test {
-	type RuntimeEvent = RuntimeEvent;
 	type Currency = Balances;
 	type BasicDeposit = BasicDeposit;
 	type ByteDeposit = ByteDeposit;
