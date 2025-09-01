@@ -332,13 +332,14 @@ mod benchmarks {
 	/// This shows the performance difference vs inline storage where cleanup is O(1).
 	#[benchmark]
 	fn clear_identity_double_map_usage(
+		b: Linear<1, { T::MaxFieldLength::get() }>,
 		j: Linear<0, { T::MaxJudgements::get() }>, // Number of judgements
 	) {
-		let caller: T::AccountId = account("caller", 0, 0);
+		let caller: T::AccountId = whitelisted_caller();
 		fund_account::<T>(&caller);
 
 		// Pre-condition: set up identity
-		let identity_info = create_identity_info::<T>(10);
+		let identity_info = create_identity_info::<T>(b);
 		let _ = Identity::<T>::set_identity(
 			RawOrigin::Signed(caller.clone()).into(),
 			identity_info.display,
