@@ -2,7 +2,7 @@
 
 extern crate alloc;
 
-use alloc::{vec, vec::Vec};
+use alloc::vec::Vec;
 use frame::{
 	deps::frame_support::{
 		genesis_builder_helper::{build_state, get_preset},
@@ -137,7 +137,6 @@ parameter_types! {
 
 /// Configure the pallet-identity in pallets/identity.
 impl pallet_identity::Config for Runtime {
-	type RuntimeEvent = RuntimeEvent;
 	type Currency = Balances;
 	type BasicDeposit = BasicDeposit;
 	type ByteDeposit = ByteDeposit;
